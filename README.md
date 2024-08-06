@@ -1,17 +1,22 @@
 # Formula1
 ### Formula1 Data Analysis
-Project Overview:
+#### Project Overview:
+
 This project aims to provide a data analysis solution for Formula-1 race results using Azure Databricks. This is an ETL pipeline to ingest Formula 1 motor racing data, transform and load it into our data warehouse for reporting and analysis purposes. The data is sourced from ergast.com, a website dedicated to Formula 1 statistics, and is stored in Azure Datalake Gen2 storage. Data transformation and analysis were performed using Azure Databricks. The entire process is orchestrated using Azure Data Factory.
-Formula1 Overview
+  
+### Formula1 Overview
+
 Formula 1 (F1) is the top tier of single-seater auto racing worldwide, governed by the FIA. It features high-tech, powerful cars with hybrid engines. Every season happens once a year, each race happens over weekends (Friday to Sunday). Each race is conducted in individual circuits. 10 Teams/Constructors will participate. Two Drivers will be assigned in a team. The season includes 20-23 races (Grands Prix) held in various countries. Safety is a priority with strict regulations and constant advancements. Pit stops for tire changes and adjustments are common. There will be a qualifying round conducted on Saturday to decide the grid positions of drivers for the Sunday match. Each race contains 50-70 laps. Pitstops will be available to change tires or cars. Race results include driver standings and constructor standings. The driver that tops the driver's standings becomes the drivers' champion and the team that tops the constructor standings becomes the constructors' champion.
-Architecture diagram
+### Architecture diagram
+![formula1 structure](https://github.com/user-attachments/assets/899085ca-6137-4d95-ba88-81c6b7b162fa)
 
 
 ### ER Diagram:
 The structure of the database is shown in the following ER Diagram and explained in the Database User Guide ERDiagram
+![formula1 database](https://github.com/user-attachments/assets/1386f97c-cada-46af-8c9f-919f7f4f5bb6)
 
 ### How it works:
-Source Date Files
+#### Source Date Files
 We are referring to open-source data from the website Ergast Developer API. Data was available from 1950 till 2022.
 File Name	File Type
 Circuits	CSV
@@ -26,18 +31,19 @@ Execution Overview:
 Azure Data Factory (ADF) is responsible for the execution of Azure Datarbicks notebooks as well as monitoring them. We import data from Ergast API to Azure Data Lake Storage Gen2 (ADLS). The raw data is stored in the container at Bronze zone (landing zone).
 Data in the Bronze zone is ingested using Azure Databricks notebook. The data is transformed into delta tables using upsert functionality. ADF then uploads the data to ADLS Silver zone (standardization zone).
 Ingested data in Silver zone is transformed using Azure Databricks SQL notebook. Tables are joined and aggregated for analytical and visualization purposes. The output is loaded to the Gold zone (analytical zone).
-ETL pipeline:
+##### ETL pipeline:
 ETL flow comprises two parts:
 
-Ingestion: Process data from Bronze zone to Silver zone
-Transformation: Process data from Silver zone to Gold zone
+* Ingestion: Process data from Bronze zone to Silver zone
+* Transformation: Process data from Silver zone to Gold zone
 In the first pipeline, data stored in JSON and CSV format is read using Apache Spark with minimal transformation saved into a delta table. The transformation includes dropping columns, renaming headers, applying schema, and adding audited columns (ingestion_date and file_source) and file_date as the notebook parameter. This serves as a dynamic expression in ADF.
 
 In the second pipeline, Databricks SQL reads preprocessed delta files and transforms them into the final dimensional model tables in delta format. Transformations performed include dropping duplicates, joining tables using join, and aggregating using a window.
 
 ADF is scheduled to run every Sunday at 10 PM and is designed to skip the execution if there is no race that week. We have another pipeline to execute the ingestion pipeline and transformation pipeline using file_date as the parameter for the tumbling window trigger.
 
-Screen Shot 2022-06-12 at 4 42 18 PM
+![pip](https://github.com/user-attachments/assets/2b20a130-18df-4726-96e3-4ac98f87133a)
+
 
 Azure Resources Used for this Project:
 Azure Data Lake Storage
@@ -166,5 +172,12 @@ Azure Data Factory
 Azure Date Lake Storage Gen2
 Azure Key Fault
 Power BI
+![graph2](https://github.com/user-attachments/assets/dd88588b-c502-48b3-81ef-05a983c42cb3)
+![graph3](https://github.com/user-attachments/assets/134841c4-63ec-496a-acb6-544b168cff93)
+
+![graph4](https://github.com/user-attachments/assets/f27133e3-6e2f-4dd8-837d-a61c4c599e53)
+![graph5](https://github.com/user-attachments/assets/98b568ff-2080-4d35-a7fc-834b47edb058)
+
+
 ![alt text](https://github.com/prajwaltaneja/Formula1/blob/main/Formula1%20Race%20Analysis/Analysis%20Screenshot/dominant%20driver%20through%20years.png)
 ![235310453-95b6d253-aaab-454b-87f1-8fb722600014](https://github.com/prajwaltaneja/Formula1/assets/87143699/fdaf66bd-9846-48e6-a758-fc6f2a28e1f7)
