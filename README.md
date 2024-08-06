@@ -1,5 +1,5 @@
 # Formula1
-###Formula1 Data Analysis
+### Formula1 Data Analysis
 Project Overview:
 This project aims to provide a data analysis solution for Formula-1 race results using Azure Databricks. This is an ETL pipeline to ingest Formula 1 motor racing data, transform and load it into our data warehouse for reporting and analysis purposes. The data is sourced from ergast.com, a website dedicated to Formula 1 statistics, and is stored in Azure Datalake Gen2 storage. Data transformation and analysis were performed using Azure Databricks. The entire process is orchestrated using Azure Data Factory.
 Formula1 Overview
@@ -7,10 +7,10 @@ Formula 1 (F1) is the top tier of single-seater auto racing worldwide, governed 
 Architecture diagram
 
 
-ER Diagram:
+### ER Diagram:
 The structure of the database is shown in the following ER Diagram and explained in the Database User Guide ERDiagram
 
-How it works:
+### How it works:
 Source Date Files
 We are referring to open-source data from the website Ergast Developer API. Data was available from 1950 till 2022.
 File Name	File Type
@@ -81,7 +81,7 @@ Ability to roll back to a previous version
 Analysis Result:
 image image image image image image
 
-Tasks performed:
+### Tasks performed:
 • Built a solution architecture for a data engineering solution using Azure Databricks, Azure Data Lake Gen2, Azure Data Factory, and Power BI.
 
 • Created and used Azure Databricks service and the architecture of Databricks within Azure.
@@ -102,7 +102,7 @@ Tasks performed:
 
 • Connected to the Azure Databricks tables from PowerBI.
 
-Spark (Only PySpark and SQL)
+### Spark (Only PySpark and SQL)
 • Spark architecture, Data Sources API, and Dataframe API.
 
 • PySpark - Ingested CSV, simple, and complex JSON files into the data lake as parquet files/ tables.
@@ -128,7 +128,7 @@ Delta Lake
 
 • Implemented incremental load pattern using delta lake.
 
-Azure Data Factory
+### Azure Data Factory
 • Created pipelines to execute Databricks notebooks.
 
 • Designed robust pipelines to deal with unexpected scenarios such as missing files.
@@ -139,8 +139,8 @@ Azure Data Factory
 
 • Monitored the triggers/ pipelines to check for errors/ outputs.
 
-##About the Project:
-###Folders:
+## About the Project:
+### Folders:
 1-Authentication: The folder contains all notebooks to demonstrate different ways to access Azure Data Lake Gen2 containers into the Databricks file system.
 
 2-includes: The folder contains notebooks with common functions and path configurations.
@@ -157,7 +157,7 @@ Azure Data Factory
 
 8-Power Bi reports: This folder contains all the reports created from the analyzed data.
 
-###Technologies/Tools Used:
+### Technologies/Tools Used:
 Pyspark
 Spark SQL
 Delta Lake
